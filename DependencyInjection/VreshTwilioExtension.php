@@ -34,6 +34,9 @@ class VreshTwilioExtension extends Extension
             ->addArgument($config['sid'])
             ->addArgument($config['authToken'])
             ->addArgument($config['version'])
-            ->addArgument($config['retryAttempts']);
+            ->addArgument($config['retryAttempts'])
+            ->addArgument($config['senderNumber'])
+            ->addArgument($config['deliveryNumber'])
+        ;
     }
 }
