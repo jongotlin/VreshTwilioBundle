@@ -32,6 +32,7 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('retryAttempts')->defaultValue(1)->end()
             ->scalarNode('senderNumber')->isRequired()->end()
             ->scalarNode('deliveryNumber')->end()
+            ->booleanNode('enabled')->end()
             ->end();
 
         return $treeBuilder->buildTree();

@@ -24,13 +24,14 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         /** @var \Symfony\Component\Config\Definition\ScalarNode[] $children  */
         $children = $node->getChildren();
         //check length
-        $this->assertEquals(6, count($children));
+        $this->assertEquals(7, count($children));
         //check if all config values are available
         $this->assertArrayHasKey('sid', $children);
         $this->assertArrayHasKey('authToken', $children);
         $this->assertArrayHasKey('version', $children);
         $this->assertArrayHasKey('retryAttempts', $children);
         $this->assertArrayHasKey('senderNumber', $children);
+        $this->assertArrayHasKey('enabled', $children);
         $this->assertArrayHasKey('deliveryNumber', $children);
     }
 }

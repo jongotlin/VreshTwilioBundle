@@ -13,6 +13,7 @@ class TwilioWrapper extends \Services_Twilio
 {
     protected $senderNumber;
     protected $deliveryNumber;
+    protected $enabled;
 
     /**
      * @param string $sid
@@ -20,14 +21,16 @@ class TwilioWrapper extends \Services_Twilio
      * @param string $version
      * @param int $retryAttempts
      * @param string $senderNumber
+     * @param boolean $enabled
      * @param string $deliveryNumber
      */
-    public function __construct($sid, $token, $version = null, $retryAttempts = 1, $senderNumber = null, $deliveryNumber = null)
+    public function __construct($sid, $token, $version = null, $retryAttempts = 1, $senderNumber = null, $enabled = true, $deliveryNumber = null)
     {
         parent::__construct($sid, $token, $version, null, $retryAttempts);
 
         $this->senderNumber = $senderNumber;
         $this->deliveryNumber = $deliveryNumber;
+        $this->enabled = $enabled;
     }
 
     /**
@@ -53,10 +56,12 @@ class TwilioWrapper extends \Services_Twilio
      */
     public function sendMessage($to, $message)
     {
-        return $this->account->messages->sendMessage(
-            $this->senderNumber,
-            $this->deliveryNumber ?: $to,
-            $message
-        );
+        if ($this->enabled) {
+            return $this->account->messages->sendMessage(
+                $this->senderNumber,
+                $this->deliveryNumber ?: $to,
+                $message
+            );
+        }
     }
 }
