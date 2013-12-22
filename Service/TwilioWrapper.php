@@ -11,26 +11,15 @@ namespace Vresh\TwilioBundle\Service;
  */
 class TwilioWrapper extends \Services_Twilio
 {
-    protected $senderNumber;
-    protected $deliveryNumber;
-    protected $enabled;
-
     /**
      * @param string $sid
      * @param string $token
      * @param string $version
      * @param int $retryAttempts
-     * @param string $senderNumber
-     * @param boolean $enabled
-     * @param string $deliveryNumber
      */
-    public function __construct($sid, $token, $version = null, $retryAttempts = 1, $senderNumber = null, $enabled = true, $deliveryNumber = null)
+    public function __construct($sid, $token, $version = null, $retryAttempts = 1)
     {
         parent::__construct($sid, $token, $version, null, $retryAttempts);
-
-        $this->senderNumber = $senderNumber;
-        $this->deliveryNumber = $deliveryNumber;
-        $this->enabled = $enabled;
     }
 
     /**
@@ -46,22 +35,5 @@ class TwilioWrapper extends \Services_Twilio
     public function createInstance($sid, $token, $version = null, $retryAttempts = 1)
     {
         return new \Services_Twilio($sid, $token, null, $version, $retryAttempts);
-    }
-
-    /**
-     * @param string $to
-     * @param string $message
-     *
-     * @return \Services_Twilio_Rest_Message
-     */
-    public function sendMessage($to, $message)
-    {
-        if ($this->enabled) {
-            return $this->account->messages->sendMessage(
-                $this->senderNumber,
-                $this->deliveryNumber ?: $to,
-                $message
-            );
-        }
     }
 }

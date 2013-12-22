@@ -35,9 +35,16 @@ class VreshTwilioExtension extends Extension
             ->addArgument($config['authToken'])
             ->addArgument($config['version'])
             ->addArgument($config['retryAttempts'])
+        ;
+
+        $container->getDefinition('vresh.twilio')
+            ->addArgument($config['sid'])
+            ->addArgument($config['authToken'])
+            ->addArgument($config['version'])
+            ->addArgument($config['retryAttempts'])
             ->addArgument($config['senderNumber'])
-            ->addArgument($config['enabled'])
-            ->addArgument($config['deliveryNumber'])
+            ->addMethodCall('setEnabled', [$config['enabled']])
+            ->addMethodCall('setDeliveryNumber', [$config['deliveryNumber']])
         ;
     }
 }
